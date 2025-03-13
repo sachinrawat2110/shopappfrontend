@@ -61,6 +61,7 @@ const Signup = () => {
 
                 if (apires.status === 200 && apires.data.code === 1) {
                     toast.success('Signup Successfully');
+                    toast.info('Please Acctivate your Account . Check your Mail.')
                 } else {
                     toast.error("Error in signup");
                 }
