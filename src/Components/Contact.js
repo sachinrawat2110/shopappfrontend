@@ -56,7 +56,7 @@ const Contact = () => {
               <br />
               <textarea className="form-control" placeholder="Message" onChange={(e) => setmessage(e.target.value)}></textarea>
 
-              <ReCAPTCHA sitekey="6Ldm9ucqAAAAAFCfWc6dgWAi-k19db8a_W7OhHYQ" onChange={gcaptchaonchange} />
+              <ReCAPTCHA sitekey="6LfEHPMqAAAAAPRdYhduwZ8UkChVEbtgAj30o1ou" onChange={gcaptchaonchange} />
 
               {/* Spinner and Submit Button */}
               {loading ? (
