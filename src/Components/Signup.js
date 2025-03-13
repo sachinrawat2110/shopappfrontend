@@ -97,10 +97,7 @@ const Signup = () => {
                         {errors.cpass && <span>{errors.cpass}</span>}
                         
                         <div className="register-check-box">
-                            <label className="checkbox">
-                                <input type="checkbox" checked={terms} onChange={(e) => setTerms(e.target.checked)} />
-                                I accept the terms and conditions
-                            </label>
+                                <input type="checkbox" checked={terms} onChange={(e) => setTerms(e.target.checked)} /> I accept the terms and conditions
                         </div><br/>
                         
                         <button type="submit">Signup</button>
