@@ -227,7 +227,7 @@ const ManageProduct=()=>
 			const uchoice = window.confirm("Are you sure to delete?")
 			if(uchoice===true)
 			{
-				const apiresp = await axios.delete(`${process.env.REACT_APP_APIURL}/api/delprod/${prodid}`,
+				const apiresp = await axios.delete(`${process.env.REACT_APP_APIURL}/api/delprod/?pid=${prodid}`,
 				{headers:{authorization: `Bearer ${sessionStorage.getItem("jtoken")}`}})
 				if(apiresp.status===200)
 				{
