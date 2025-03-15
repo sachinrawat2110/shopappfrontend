@@ -1,26 +1,34 @@
 import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import axios from "axios";
 
 const Listuser = () => {
     const [userdata, setuserdata] = useState([]);
     const [currentPage, setCurrentPage] = useState(1);
 
     const productsPerPage = 5;
-
     const indexOfLastProduct = currentPage * productsPerPage;
     const indexOfFirstProduct = indexOfLastProduct - productsPerPage;
     const currentProducts = userdata.slice(indexOfFirstProduct, indexOfLastProduct);
 
     const fetchuser = async () => {
         try {
-            const { data } = await axios.get(`${process.env.REACT_APP_APIURL}/api/alluser`);
-
-            if (data.code === 1) {
-                setuserdata(data.membsdata);
+            const apires = await fetch(`${process.env.REACT_APP_APIURL}/api/alluser`, 
+            {
+                headers: { authorization: `Bearer ${sessionStorage.getItem("jtoken")}` }
+            });
+            if (apires.ok)
+             {
+                const result = await apires.json();
+                if (result.code === 1)
+                 {
+                    setuserdata(result.membsdata);
+                } else
+                 {
+                    toast.error('No members found');
+                    setuserdata([]);
+                }
             } else {
-                toast.error('No members found');
-                setuserdata([]);
+                toast.warning("Some error occurred, oops!");
             }
         } catch (e) {
             toast.error(e.message);
@@ -35,12 +43,17 @@ const Listuser = () => {
         try {
             const uchoice = window.confirm("Are you sure to Delete?");
             if (uchoice) {
-                const { data } = await axios.delete(`${process.env.REACT_APP_APIURL}/api/deluser?uid=${id}`);
-                if (data.code === 1) {
-                    toast.success("User deleted successfully");
-                    fetchuser(); // Refresh the list after delete
-                } else {
-                    toast.error("User not deleted");
+                const apires = await fetch(`${process.env.REACT_APP_APIURL}/api/deluser?uid=${id}`, {
+                    method: "DELETE"
+                });
+                if (apires.ok) {
+                    const result1 = await apires.json();
+                    if (result1.code === 1) {
+                        toast.success("User deleted successfully");
+                        fetchuser();
+                    } else {
+                        toast.error("User not deleted");
+                    }
                 }
             }
         } catch (e) {
@@ -55,7 +68,7 @@ const Listuser = () => {
                     <div className="login-form-grids animated wow slideInUp" data-wow-delay=".5s">
                         {currentProducts.length > 0 ? (
                             <>
-                                <h2>List Of Users</h2><br />
+                                <h2>List User</h2>
                                 <table className="timetable_sub">
                                     <tbody>
                                         <tr>
@@ -77,7 +90,7 @@ const Listuser = () => {
                                             </tr>
                                         ))}
                                     </tbody>
-                                </table><br />
+                                </table>
                                 <div>
                                     <button className="btn btn-primary"
                                         onClick={() => setCurrentPage(currentPage - 1)}
