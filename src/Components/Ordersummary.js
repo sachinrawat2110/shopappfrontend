@@ -18,7 +18,7 @@ const Ordersummary = () => {
                 if (apiresp.data.code === 1) {
                     setorderinfo(apiresp.data.orderdet);
                     setorderitems(apiresp.data.orderdet.items);
-                    toast.Success('We Have Sent You an Email Please Check It.');
+                    toast.success('We Have Sent You an Email Please Check It.');
                 } else {
                     toast.error("No order details found");
                 }
