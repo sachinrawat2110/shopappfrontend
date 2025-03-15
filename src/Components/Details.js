@@ -78,7 +78,7 @@ const Details = () => {
             {
                 var tc=remamt*qty;
                 const cartdata = {prodid,pic:pdata.picture,pname:pdata.prodname,rate:remamt,qty,tc,uname}
-                const apiresp = await axios.post(`http://localhost:9000/api/addtocart`,cartdata)
+                const apiresp = await axios.post(`${process.env.REACT_APP_APIURL}/api/addtocart`,cartdata)
                 if(apiresp.status===200)
                 {
                     if(apiresp.data.code===1)
